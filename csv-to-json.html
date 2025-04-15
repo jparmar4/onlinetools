@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSV to JSON Converter</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    textarea { width: 100%; height: 150px; }
+    pre { background-color: #f0f0f0; padding: 10px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+
+  <h2>Convert CSV to JSON</h2>
+  <textarea id="csvInput" placeholder="Enter CSV data here..."></textarea><br>
+  <button onclick="convertCSV()">Convert</button><br><br>
+  <pre id="jsonOutput"></pre>
+
+  <script>
+    function convertCSV() {
+      const csv = document.getElementById('csvInput').value.trim();
+      const lines = csv.split('\n');
+      const headers = lines[0].split(',');
+
+      const result = lines.slice(1).map(line => {
+        const values = line.split(',');
+        const obj = {};
+        headers.forEach((header, index) => {
+          obj[header.trim()] = values[index].trim();
+        });
+        return obj;
+      });
+
+      document.getElementById('jsonOutput').textContent = JSON.stringify(result, null, 2);
+    }
+  </script>
+
+</body>
+</html>

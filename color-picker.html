@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color Picker Tool</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #selectedColor {
+      font-weight: bold;
+      padding: 10px;
+      background-color: #f3f3f3;
+      margin-top: 10px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pick a Color</h2>
+  <input type="color" id="colorInput" onchange="showColor()">
+  <div id="selectedColor">Selected Color: #000000</div>
+
+  <script>
+    function showColor() {
+      const color = document.getElementById('colorInput').value;
+      const output = document.getElementById('selectedColor');
+      output.textContent = "Selected Color: " + color;
+      output.style.backgroundColor = color;
+    }
+  </script>
+
+</body>
+</html>
