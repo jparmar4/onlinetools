@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Tools - Tools for getting things done quickly</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        /* Custom styles to complement Tailwind */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .tool-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .category-section {
+            scroll-margin-top: 80px;
+        }
+        
+        /* Custom gradient backgrounds */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+        }
+        
+        .bg-gradient-secondary {
+            background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
+        }
+        
+        /* Custom separator */
+        .custom-separator {
+            height: 4px;
+            background: linear-gradient(90deg, #4F46E5 0%, #7C3AED 50%, #2563EB 100%);
+            border-radius: 2px;
+        }
+
+        /* Hide scrollbar for cleaner look in PDF */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-indigo-600 flex items-center">
+                        <i class="fas fa-tools mr-2"></i>
+                        OnlineTools
+                    </a>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="hidden md:block w-1/3">
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="Search for tools..." 
+                               class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <button class="absolute right-0 top-0 mt-2 mr-4 text-gray-500">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+                    <a href="#tools" class="text-gray-700 hover:text-indigo-600 font-medium">Tools</a>
+                    <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium">About</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-indigo-600 font-medium">Pricing</a>
+                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700">Sign In</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-indigo-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden pt-4 pb-2">
+                <div class="mb-4">
+                    <input type="text" placeholder="Search for tools..." 
+                           class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div class="flex flex-col space-y-3">
+                    <a href="#" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+                    <a href="#tools" class="text-gray-700 hover:text-indigo-600 font-medium">Tools</a>
+                    <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium">About</a>
+                    <a href="#pricing" class="text-gray-700 hover:text-indigo-600 font-medium">Pricing</a>
+                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 text-center">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 bg-gradient-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Tools for getting things done quickly</h1>
+                <p class="text-xl mb-8">Over 1000+ online utilities for editing images, animations, and text. Trusted by millions of users and thousands of businesses.</p>
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <a href="#tools" class="bg-white text-indigo-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                        Explore Tools
+                    </a>
+                    <a href="#pricing" class="bg-transparent text-white border border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-indigo-700 transition-colors">
+                        View Pricing
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Categories -->
+    <section id="tools" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Our Tool Categories</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Category: Image Tools -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-image text-2xl text-indigo-600 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Image Tools</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Edit, convert, resize, and manipulate images with our powerful browser-based tools.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>PNG & JPG conversion</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Image resizing & cropping</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Image compression</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Color adjustments</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
+                        Explore Image Tools
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Category: Text Tools -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-font text-2xl text-indigo-600 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Text Tools</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Manipulate, format, and transform text with our simple yet powerful text processing utilities.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Case conversion</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Text formatting</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Encoding/decoding</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>String manipulation</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
+                        Explore Text Tools
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Category: Animation Tools -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-film text-2xl text-indigo-600 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Animation Tools</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Create, edit, and optimize GIF animations with our browser-based animation tools.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>GIF creation & editing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>GIF optimization</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Frame extraction</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Animation effects</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
+                        Explore Animation Tools
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Category: Data Tools -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-database text-2xl text-indigo-600 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Data Tools</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Process, convert, and manipulate various data formats with our easy-to-use utilities.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>CSV & JSON handling</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Data conversion</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>List manipulation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Random generators</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
+                        Explore Data Tools
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Category: Color Tools -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-palette text-2xl text-indigo-600 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Color Tools</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Work with colors, pick palettes, and convert between color formats with our color utilities.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Color picker</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Color format conversion</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Palette generation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Color extraction</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
+                        Explore Color Tools
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Category: Developer Tools -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-code text-2xl text-indigo-600 mr-3"></i>
+                        <h3 class="text-xl font-semibold">Developer Tools</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Make web development easier with our collection of coder-focused utilities.</p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Code formatting</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Minification</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Base64 encoding/decoding</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Hash generation</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800 flex items-center">
+                        Explore Developer Tools
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">How Online Tools Work</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-upload text-2xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">1. Upload Your Content</h3>
+                    <p class="text-gray-600">
+                        Load your data directly in your browser. No files are sent to any server, ensuring complete privacy.
+                    </p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-sliders-h text-2xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">2. Process Instantly</h3>
+                    <p class="text-gray-600">
+                        All processing happens locally in your browser, providing instant results without waiting for server response.
+                    </p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-download text-2xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">3. Download Result</h3>
+                    <p class="text-gray-600">
+                        Get your processed content immediately. Download, copy, or use the result in your projects right away.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Info box -->
+            <div class="bg-indigo-100 rounded-xl p-6 mt-12 max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="mb-4 md:mb-0 md:mr-6">
+                        <i class="fas fa-shield-alt text-3xl text-indigo-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Your Data Stays Private</h3>
+                        <p class="text-gray-700">
+                            All processing happens locally in your web browser. Your files never leave your device, ensuring complete privacy and security.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Tools Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">Popular Tools</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                These are our most-used tools that help thousands of users accomplish their tasks every day.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Tool 1 -->
+                <div class="tool-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="h-40 bg-gradient-secondary flex items-center justify-center">
+                        <i class="fas fa-crop-alt text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">Image Resizer</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Resize your images to exact dimensions while maintaining quality.
+                        </p>
+                        <a href="#" class="text-indigo-600 text-sm font-medium hover:text-indigo-800">
+                            Open Tool →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tool 2 -->
+                <div class="tool-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="h-40 bg-gradient-secondary flex items-center justify-center">
+                        <i class="fas fa-compress-arrows-alt text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">JPG Compressor</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Compress JPG images to reduce file size while preserving quality.
+                        </p>
+                        <a href="#" class="text-indigo-600 text-sm font-medium hover:text-indigo-800">
+                            Open Tool →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tool 3 -->
+                <div class="tool-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="h-40 bg-gradient-secondary flex items-center justify-center">
+                        <i class="fas fa-exchange-alt text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">PNG to JPG Converter</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Convert PNG images to JPG format with custom quality settings.
+                        </p>
+                        <a href="#" class="text-indigo-600 text-sm font-medium hover:text-indigo-800">
+                            Open Tool →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tool 4 -->
+                <div class="tool-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="h-40 bg-gradient-secondary flex items-center justify-center">
+                        <i class="fas fa-text-height text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">Case Converter</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Convert text case to UPPERCASE, lowercase, Title Case, and more.
+                        </p>
+                        <a href="#" class="text-indigo-600 text-sm font-medium hover:text-indigo-800">
+                            Open Tool →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tool 5 -->
+                <div class="tool-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="h-40 bg-gradient-secondary flex items-center justify-center">
+                        <i class="fas fa-list-ol text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">List Sorter</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Sort lists alphabetically, numerically, or by custom rules.
+                        </p>
+                        <a href="#" class="text-indigo-600 text-sm font-medium hover:text-indigo-800">
+                            Open Tool →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tool 6 -->
+                <div class="tool-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="h-40 bg-gradient-secondary flex items-center justify-center">
+                        <i class="fas fa-random text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">Text Randomizer</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Shuffle and randomize lines of text with various options.
+                        </p>
+                        <a href="#" class="text-indigo-600 text-sm font-medium hover:text-indigo-800">
+                            Open Tool →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tool 7 -->
+                <div class="tool-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="h-40 bg-gradient-secondary flex items-center justify-center">
+                        <i class="fas fa-film text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">GIF Optimizer</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Optimize GIF animations to reduce file size while maintaining quality.
+                        </p>
+                        <a href="#" class="text-indigo-600 text-sm font-medium hover:text-indigo-800">
+                            Open Tool →
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Tool 8 -->
+                <div class="tool-card bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="h-40 bg-gradient-secondary flex items-center justify-center">
+                        <i class="fas fa-code text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold mb-2">JSON Formatter</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Format, validate, and beautify JSON data with custom indentation.
+                        </p>
+                        <a href="#" class="text-indigo-600 text-sm font-medium hover:text-indigo-800">
+                            Open Tool →
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#tools" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 inline-block">
+                    Explore All Tools
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">Who Uses Our Tools</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                Our tools are trusted by millions of users worldwide, from individual professionals to large enterprises.
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center mb-12">
+                <!-- Company logos would go here -->
+                <div class="text-center text-gray-600 font-semibold">Company 1</div>
+                <div class="text-center text-gray-600 font-semibold">Company 2</div>
+                <div class="text-center text-gray-600 font-semibold">Company 3</div>
+                <div class="text-center text-gray-600 font-semibold">Company 4</div>
+                <div class="text-center text-gray-600 font-semibold">Company 5</div>
+                <div class="text-center text-gray-600 font-semibold">Company 6</div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-indigo-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">
+                        "These tools have saved me countless hours of work. The image resizing and compression tools are particularly excellent, maintaining quality while reducing file sizes."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Sarah Johnson</h4>
+                            <p class="text-sm text-gray-600">Graphic Designer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-indigo-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">
+                        "As a web developer, I use these tools daily. The JSON formatter and code utilities are my go-to resources. Fast, reliable, and incredibly useful."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Michael Rodriguez</h4>
+                            <p class="text-sm text-gray-600">Web Developer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-indigo-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">
+                        "Our marketing team relies on these tools every day. The fact that everything happens in the browser with no uploads makes it both fast and secure."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Emily Chen</h4>
+                            <p class="text-sm text-gray-600">Marketing Director</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">Simple Pricing</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                Choose the plan that fits your needs. All plans include access to our tools with varying features and limits.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Free Plan -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">Free</h3>
+                        <p class="text-gray-600 mb-4">Basic access to essential tools</p>
+                        <div class="flex items-baseline">
+                            <span class="text-3xl font-bold">$0</span>
+                            <span class="text-gray-600 ml-1">/month</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Access to basic tools</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Process files up to 2MB</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Standard processing speed</span>
+                            </li>
+                            <li class="flex items-start text-gray-400">
+                                <i class="fas fa-times mt-1 mr-2"></i>
+                                <span>No watermarks</span>
+                            </li>
+                            <li class="flex items-start text-gray-400">
+                                <i class="fas fa-times mt-1 mr-2"></i>
+                                <span>Priority support</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="block text-center py-2 px-4 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Pro Plan -->
+                <div class="bg-white rounded-xl border border-indigo-500 overflow-hidden shadow-lg transform scale-105 z-10">
+                    <div class="p-6 border-b border-gray-200 bg-indigo-500 text-white">
+                        <div class="inline-block px-3 py-1 bg-white text-indigo-600 rounded-full text-xs font-semibold mb-2">MOST POPULAR</div>
+                        <h3 class="text-xl font-bold mb-2">Pro</h3>
+                        <p class="text-indigo-100 mb-4">Advanced features for professionals</p>
+                        <div class="flex items-baseline">
+                            <span class="text-3xl font-bold">$9.99</span>
+                            <span class="text-indigo-100 ml-1">/month</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Access to all tools</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Process files up to 20MB</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Faster processing speed</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>No watermarks</span>
+                            </li>
+                            <li class="flex items-start text-gray-400">
+                                <i class="fas fa-times mt-1 mr-2"></i>
+                                <span>Priority support</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="block text-center py-2 px-4 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Business Plan -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">Business</h3>
+                        <p class="text-gray-600 mb-4">Enterprise-grade tools and support</p>
+                        <div class="flex items-baseline">
+                            <span class="text-3xl font-bold">$24.99</span>
+                            <span class="text-gray-600 ml-1">/month</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Access to all tools</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Process files up to 100MB</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Fastest processing speed</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>No watermarks</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                <span>Priority support</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="block text-center py-2 px-4 border border-indigo-600 text-indigo-600 rounded-lg font-medium hover:bg-indigo-50">
+                            Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <!-- FAQ Item 1 -->
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold p-4 bg-white rounded-lg shadow-sm" data-target="faq1">
+                        <span>Are my files secure when using your tools?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transform transition-transform"></i>
+                    </button>
+                    <div id="faq1" class="faq-content bg-white px-4 pb-4 rounded-b-lg shadow-sm mt-px hidden">
+                        <p class="text-gray-600">
+                            Yes, absolutely. All of our tools process your files directly in your browser. Your files are never uploaded to our servers, ensuring complete privacy and security. We don't have access to your data at any point during processing.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold p-4 bg-white rounded-lg shadow-sm" data-target="faq2">
+                        <span>What's the difference between free and paid plans?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transform transition-transform"></i>
+                    </button>
+                    <div id="faq2" class="faq-content bg-white px-4 pb-4 rounded-b-lg shadow-sm mt-px hidden">
+                        <p class="text-gray-600">
+                            Our free plan provides access to essential tools with size limitations (up to 2MB). Paid plans remove these limitations, allow processing of larger files (up to 100MB), provide faster processing speeds, remove watermarks, and include priority support. Pro and Business plans also grant access to exclusive advanced tools.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold p-4 bg-white rounded-lg shadow-sm" data-target="faq3">
+                        <span>Can I use these tools for commercial projects?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transform transition-transform"></i>
+                    </button>
+                    <div id="faq3" class="faq-content bg-white px-4 pb-4 rounded-b-lg shadow-sm mt-px hidden">
+                        <p class="text-gray-600">
+                            Yes, you can use our tools for commercial projects. The free plan allows commercial use with some limitations. For extensive commercial use, we recommend our Pro or Business plans, which provide higher limits and more advanced features suitable for professional work.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold p-4 bg-white rounded-lg shadow-sm" data-target="faq4">
+                        <span>Do I need to install any software to use your tools?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transform transition-transform"></i>
+                    </button>
+                    <div id="faq4" class="faq-content bg-white px-4 pb-4 rounded-b-lg shadow-sm mt-px hidden">
+                        <p class="text-gray-600">
+                            No, all of our tools run directly in your web browser. There's no need to download or install any additional software. Simply visit our website, select the tool you need, and start using it immediately. This makes our tools accessible across all devices and operating systems.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="mb-6">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left font-semibold p-4 bg-white rounded-lg shadow-sm" data-target="faq5">
+                        <span>Can I cancel my subscription at any time?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transform transition-transform"></i>
+                    </button>
+                    <div id="faq5" class="faq-content bg-white px-4 pb-4 rounded-b-lg shadow-sm mt-px hidden">
+                        <p class="text-gray-600">
+                            Yes, you can cancel your subscription at any time. There are no long-term commitments or cancellation fees. When you cancel, you'll continue to have access to your paid features until the end of your current billing period. After that, your account will revert to the free plan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-primary text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to streamline your workflow?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Join millions of users who trust our tools to get things done quickly and efficiently.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                <a href="#tools" class="bg-white text-indigo-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+                    Explore Our Tools
+                </a>
+                <a href="#pricing" class="bg-transparent text-white border border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-indigo-700 transition-colors">
+                    See Pricing
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Column 1 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">OnlineTools</h3>
+                    <p class="text-gray-400 mb-4">
+                        The largest collection of browser-based utilities for getting things done quickly.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Tools</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Image Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Text Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Animation Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Data Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Color Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Developer Tools</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">GDPR Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="custom-separator mt-8 mb-8"></div>
+            
+            <div class="text-center text-gray-400">
+                <p>&copy; 2023 OnlineTools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle mobile menu
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+        
+        // FAQ accordion functionality
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const targetContent = document.getElementById(targetId);
+                
+                // Toggle the content visibility
+                if (targetContent.classList.contains('hidden')) {
+                    targetContent.classList.remove('hidden');
+                    button.querySelector('i').classList.add('rotate-180');
+                } else {
+                    targetContent.classList.add('hidden');
+                    button.querySelector('i').classList.remove('rotate-180');
+                }
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                // This is a placeholder for actual search functionality
+                // In a real implementation, you would search through your tools and display the results
+                console.log('Searching for:', searchTerm);
+                
+                // Example of how to filter tools based on search term
+                // document.querySelectorAll('.tool-card').forEach(card => {
+                //     const toolName = card.querySelector('h3').textContent.toLowerCase();
+                //     const toolDescription = card.querySelector('p').textContent.toLowerCase();
+                //     
+                //     if (toolName.includes(searchTerm) || toolDescription.includes(searchTerm)) {
+                //         card.style.display = 'block';
+                //     } else {
+                //         card.style.display = 'none';
+                //     }
+                // });
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for fixed header
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Tool filtering functionality (placeholder)
+        function filterTools(category) {
+            console.log('Filtering tools by category:', category);
+            // In a real implementation, you would filter the tools based on the selected category
+        }
+    </script>
+</body>
+</html>
