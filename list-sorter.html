@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>List Sorter</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    textarea { width: 100%; height: 150px; }
+  </style>
+</head>
+<body>
+
+  <h2>List Sorter</h2>
+  <textarea id="listInput" placeholder="Enter one item per line"></textarea><br><br>
+  <button onclick="sortList()">Sort Alphabetically</button>
+  <button onclick="sortNumerically()">Sort Numerically</button>
+
+  <script>
+    function sortList() {
+      const lines = document.getElementById('listInput').value.split('\n');
+      lines.sort();
+      document.getElementById('listInput').value = lines.join('\n');
+    }
+
+    function sortNumerically() {
+      const lines = document.getElementById('listInput').value
+        .split('\n')
+        .map(x => x.trim())
+        .filter(x => x !== '')
+        .sort((a, b) => parseFloat(a) - parseFloat(b));
+      document.getElementById('listInput').value = lines.join('\n');
+    }
+  </script>
+
+</body>
+</html>

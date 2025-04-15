@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Case Converter</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    textarea { width: 100%; height: 150px; margin-bottom: 10px; }
+    button { margin: 5px 5px 5px 0; }
+  </style>
+</head>
+<body>
+
+  <h2>Convert Text Case</h2>
+  <textarea id="text"></textarea><br>
+  <button onclick="toUpper()">UPPERCASE</button>
+  <button onclick="toLower()">lowercase</button>
+  <button onclick="toTitle()">Title Case</button>
+
+  <script>
+    function toUpper() {
+      document.getElementById('text').value = document.getElementById('text').value.toUpperCase();
+    }
+
+    function toLower() {
+      document.getElementById('text').value = document.getElementById('text').value.toLowerCase();
+    }
+
+    function toTitle() {
+      const text = document.getElementById('text').value.toLowerCase();
+      const titleCase = text.replace(/\b\w/g, l => l.toUpperCase());
+      document.getElementById('text').value = titleCase;
+    }
+  </script>
+
+</body>
+</html>

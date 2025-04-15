@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PNG to JPG Converter</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    img, canvas { max-width: 100%; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h2>Convert PNG to JPG</h2>
+  <input type="file" accept="image/png" id="pngInput">
+  <br><br>
+  <button onclick="convertToJPG()">Convert & Download</button>
+  <br><br>
+  <canvas id="canvas" style="display: none;"></canvas>
+
+  <script>
+    function convertToJPG() {
+      const input = document.getElementById('pngInput');
+      if (!input.files.length) return alert("Please select a PNG image");
+
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.getElementById('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = "#fff"; // white background
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          const jpgUrl = canvas.toDataURL("image/jpeg", 1.0);
+          
+          const link = document.createElement('a');
+          link.download = "converted.jpg";
+          link.href = jpgUrl;
+          link.click();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+
+</body>
+</html>

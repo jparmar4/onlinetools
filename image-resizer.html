@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Resizer</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    canvas { border: 1px solid #ccc; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h2>Resize Your Image</h2>
+  <input type="file" id="imageInput">
+  <br><br>
+  Width: <input type="number" id="widthInput" placeholder="Width">
+  Height: <input type="number" id="heightInput" placeholder="Height">
+  <br><br>
+  <button onclick="resizeImage()">Resize</button>
+  <br><br>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    let img = new Image();
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    document.getElementById('imageInput').addEventListener('change', function(e) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        img.onload = function() {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+        }
+        img.src = event.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    });
+
+    function resizeImage() {
+      const width = parseInt(document.getElementById('widthInput').value);
+      const height = parseInt(document.getElementById('heightInput').value);
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Randomizer</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    textarea { width: 100%; height: 150px; }
+  </style>
+</head>
+<body>
+
+  <h2>Text Line Randomizer</h2>
+  <textarea id="textInput" placeholder="Enter lines of text here..."></textarea><br><br>
+  <button onclick="randomize()">Shuffle Lines</button>
+
+  <script>
+    function randomize() {
+      const lines = document.getElementById('textInput').value.split('\n');
+      for (let i = lines.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [lines[i], lines[j]] = [lines[j], lines[i]];
+      }
+      document.getElementById('textInput').value = lines.join('\n');
+    }
+  </script>
+
+</body>
+</html>
